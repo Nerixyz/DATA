@@ -29,18 +29,12 @@ PROJ := DATA - Cryptolib Common
 #------------------------------------------------------------------------
 # Targets
 #------------------------------------------------------------------------
-.PHONY: all clean dsa_nonce preload
+.PHONY: all clean
 
-all: cleanenv openssl dsa_nonce preload
+all: cleanenv preload
 
 cleanenv: cleanenv.c
 	$(CC) -Wall $^ -o $@
-
-openssl:
-	@./fetch_openssl.sh
-
-dsa_nonce: openssl
-	$(MAKE) -C dsa_nonce
 
 preload:
 	$(MAKE) -C preload
@@ -48,8 +42,6 @@ preload:
 clean:
 	rm -f cleanenv
 	rm -f cleanenv.txt
-	rm -rf openssl
-	$(MAKE) -C dsa_nonce clean
 	$(MAKE) -C preload clean
 
 help:
